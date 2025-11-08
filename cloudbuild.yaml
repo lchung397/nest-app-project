@@ -23,7 +23,7 @@ steps:
       [
         'set',
         'image',
-        'deployment/nest-api',
+        'deployment/nest-app-project',
         'nest=asia-southeast1-docker.pkg.dev/$PROJECT_ID/nest-docker/api:$COMMIT_SHA'
       ]
     env:
