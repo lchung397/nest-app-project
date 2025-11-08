@@ -1,0 +1,41 @@
+steps:
+  # 1. Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'asia-southeast1-docker.pkg.dev/$PROJECT_ID/nest-docker/api:$COMMIT_SHA',
+        '.'
+      ]
+
+  # 2. Push Docker image lên Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'asia-southeast1-docker.pkg.dev/$PROJECT_ID/nest-docker/api:$COMMIT_SHA'
+      ]
+
+  # 3. Triển khai lên GKE (update image trong Deployment)
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      [
+        'set',
+        'image',
+        'deployment/nest-api',
+        'nest=asia-southeast1-docker.pkg.dev/$PROJECT_ID/nest-docker/api:$COMMIT_SHA'
+      ]
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=asia-southeast1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=nest-autopilot'
+
+# Cho phép dùng biến môi trường động như $COMMIT_SHA
+options:
+  substitutionOption: ALLOW_LOOSE
+
+# Substitutions mặc định nếu bạn chạy thủ công
+substitutions:
+  _REGION: 'asia-southeast1'
+  _REPOSITORY: 'nest-docker'
+  _IMAGE: 'api'

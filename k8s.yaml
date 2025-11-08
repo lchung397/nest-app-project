@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-app-project
+  labels:
+    app: nest-app-project
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nest-app-project
+  template:
+    metadata:
+      labels:
+        app: nest-app-project
+    spec:
+      containers:
+        - name: nest
+          image: asia-southeast1-docker.pkg.dev/deploy-nest-app-project/nest-docker/api:v2 # ⚠️ cập nhật image mới
+          imagePullPolicy: Always # ép GKE luôn pull image mới nhất
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nest-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: nest-app-project
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 3000
