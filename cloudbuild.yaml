@@ -33,6 +33,7 @@ steps:
 # Cho phép dùng biến môi trường động như $COMMIT_SHA
 options:
   substitutionOption: ALLOW_LOOSE
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
 # Substitutions mặc định nếu bạn chạy thủ công
 substitutions:
