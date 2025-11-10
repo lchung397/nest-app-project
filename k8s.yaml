@@ -34,7 +34,7 @@ spec:
 
             # ✅ ✅ DATABASE CONFIG (QUAN TRỌNG)
             - name: DB_HOST
-              value: "my-postgres-postgresql.database.svc.cluster.local"
+              value: "136.110.37.70"
             - name: DB_PORT
               value: "5432"
             - name: DB_USERNAME
