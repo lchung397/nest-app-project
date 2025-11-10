@@ -16,13 +16,34 @@ spec:
     spec:
       containers:
         - name: nest
-          image: asia-southeast1-docker.pkg.dev/deploy-nest-app-project/nest-docker/api:v2 # ⚠️ cập nhật image mới
-          imagePullPolicy: Always # ép GKE luôn pull image mới nhất
+          image: asia-southeast1-docker.pkg.dev/deploy-nest-app-project/nest-docker/api:v2
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
             - name: NODE_ENV
               value: "production"
+
+            # ✅ APP PORT
+            - name: PORT
+              value: "3000"
+
+            # ✅ JWT (tùy em thay)
+            - name: JWT_SECRET
+              value: "your-super-secret-jwt-key-change-this-in-production"
+
+            # ✅ ✅ DATABASE CONFIG (QUAN TRỌNG)
+            - name: DB_HOST
+              value: "my-postgres-postgresql.database.svc.cluster.local"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USERNAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "LASdExY6HJ"
+            - name: DB_DATABASE
+              value: "postgres"
+
           resources:
             requests:
               cpu: "250m"
@@ -30,6 +51,7 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
+
 ---
 apiVersion: v1
 kind: Service
