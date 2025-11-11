@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nest
-          image: asia-southeast1-docker.pkg.dev/deploy-nest-app-project/nest-docker/api:v2
+          image: asia-southeast1-docker.pkg.dev/deploy-nest-app-project/nest-docker/api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
