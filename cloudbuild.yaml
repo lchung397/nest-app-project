@@ -24,7 +24,7 @@ steps:
         'set',
         'image',
         'deployment/nest-app-project',
-        'nest=asia-southeast1-docker.pkg.dev/$PROJECT_ID/nest-docker/api:$COMMIT_SHA'
+        'nginx-1=asia-southeast1-docker.pkg.dev/$PROJECT_ID/nest-docker/api:$COMMIT_SHA'
       ]
     env:
       - 'CLOUDSDK_COMPUTE_REGION=asia-southeast1'
