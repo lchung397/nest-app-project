@@ -21,19 +21,20 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
+                envFilePath: '.env',
             }),
             typeorm_1.TypeOrmModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: (configService) => ({
-                    type: 'postgres',
-                    host: configService.get('DB_HOST'),
-                    port: configService.get('DB_PORT'),
-                    username: configService.get('DB_USERNAME'),
-                    password: configService.get('DB_PASSWORD'),
-                    database: configService.get('DB_DATABASE'),
-                    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+                    type: "postgres",
+                    host: configService.get("DB_HOST") || "136.110.37.70",
+                    port: parseInt(configService.get("DB_PORT") || "5432"),
+                    username: configService.get("DB_USERNAME") || "postgres",
+                    password: configService.get("DB_PASSWORD"),
+                    database: configService.get("DB_DATABASE") || "postgres",
+                    entities: [__dirname + "/**/*.entity{.ts,.js}"],
                     synchronize: true,
-                    logging: true,
+                    logging: false,
                 }),
                 inject: [config_1.ConfigService],
             }),
