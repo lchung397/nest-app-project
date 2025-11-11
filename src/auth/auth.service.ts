@@ -18,16 +18,13 @@ export class AuthService {
   async signUp(signUpDto: SignUpDto) {
     const { email, password, name } = signUpDto;
 
-    // Kiểm tra email đã tồn tại
     const existingUser = await this.userRepository.findOne({ where: { email } });
     if (existingUser) {
       throw new ConflictException('Email already exists');
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Tạo user mới
     const newUser = this.userRepository.create({
       email,
       password: hashedPassword,
@@ -36,7 +33,6 @@ export class AuthService {
 
     await this.userRepository.save(newUser);
 
-    // Tạo JWT token
     const payload = { email: newUser.email, sub: newUser.id };
     const access_token = this.jwtService.sign(payload);
 
@@ -53,19 +49,16 @@ export class AuthService {
   async signIn(signInDto: SignInDto) {
     const { email, password } = signInDto;
 
-    // Tìm user
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // Kiểm tra password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // Tạo JWT token
     const payload = { email: user.email, sub: user.id };
     const access_token = this.jwtService.sign(payload);
 
