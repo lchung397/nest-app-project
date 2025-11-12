@@ -12,7 +12,10 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const auth_module_1 = require("./auth/auth.module");
+const auth_module_1 = require("./presentation/auth/auth.module");
+const user_schema_1 = require("./infrastructure/database/typeorm/user.schema");
+const contract_schema_1 = require("./infrastructure/database/typeorm/contract.schema");
+const contract_module_1 = require("./presentation/contract/contract.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,13 +35,14 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get("DB_USERNAME") || "postgres",
                     password: configService.get("DB_PASSWORD"),
                     database: configService.get("DB_DATABASE") || "postgres",
-                    entities: [__dirname + "/**/*.entity{.ts,.js}"],
+                    entities: [user_schema_1.UserSchema, contract_schema_1.ContractSchema],
                     synchronize: true,
                     logging: false,
                 }),
                 inject: [config_1.ConfigService],
             }),
             auth_module_1.AuthModule,
+            contract_module_1.ContractModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
