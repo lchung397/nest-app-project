@@ -24,16 +24,18 @@ let ContractRepository = class ContractRepository {
         this.contractRepository = contractRepository;
     }
     async findById(id) {
-        const contractSchema = await this.contractRepository.findOne({ where: { id } });
+        const contractSchema = await this.contractRepository.findOne({
+            where: { id },
+        });
         return contractSchema ? this.toDomain(contractSchema) : null;
     }
     async findByUserId(userId) {
         const contracts = await this.contractRepository.find({ where: { userId } });
-        return contracts.map(c => this.toDomain(c));
+        return contracts.map((c) => this.toDomain(c));
     }
     async findAll() {
         const contracts = await this.contractRepository.find();
-        return contracts.map(c => this.toDomain(c));
+        return contracts.map((c) => this.toDomain(c));
     }
     async create(contract) {
         const contractSchema = this.contractRepository.create(contract);
@@ -41,9 +43,11 @@ let ContractRepository = class ContractRepository {
         return this.toDomain(savedContract);
     }
     async update(id, contract) {
-        const existingContract = await this.contractRepository.findOne({ where: { id } });
+        const existingContract = await this.contractRepository.findOne({
+            where: { id },
+        });
         if (!existingContract) {
-            throw new common_1.NotFoundException('Contract not found');
+            throw new common_1.NotFoundException("Contract not found");
         }
         Object.assign(existingContract, contract);
         const updatedContract = await this.contractRepository.save(existingContract);
@@ -52,7 +56,7 @@ let ContractRepository = class ContractRepository {
     async delete(id) {
         const result = await this.contractRepository.delete(id);
         if (result.affected === 0) {
-            throw new common_1.NotFoundException('Contract not found');
+            throw new common_1.NotFoundException("Contract not found");
         }
     }
     toDomain(contractSchema) {

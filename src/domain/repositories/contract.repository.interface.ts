@@ -1,4 +1,4 @@
-import { Contract } from '../entities/contract.entity';
+import { Contract } from "../entities/contract.entity";
 
 export interface IContractRepository {
   findById(id: string): Promise<Contract | null>;
@@ -9,4 +9,4 @@ export interface IContractRepository {
 }
 
 // Symbol để inject
-export const IContractRepository = Symbol('IContractRepository');
+export const IContractRepository = Symbol("IContractRepository");

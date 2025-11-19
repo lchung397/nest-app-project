@@ -1,8 +1,8 @@
-import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { IUserRepository } from '../../domain/repositories/user.repository.interface';
-import { SignInDto } from '../dto/signin.dto';
+import { Injectable, Inject, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcrypt";
+import { IUserRepository } from "../../domain/repositories/user.repository.interface";
+import { SignInDto } from "../dto/signin.dto";
 
 @Injectable()
 export class SignInUseCase {
@@ -16,13 +16,13 @@ export class SignInUseCase {
     const { email, password } = signInDto;
 
     const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+    if (!user || !user.password) {
+      throw new UnauthorizedException("Invalid credentials");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException("Invalid credentials");
     }
 
     const payload = { email: user.email, sub: user.id };

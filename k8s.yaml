@@ -24,15 +24,12 @@ spec:
             - name: NODE_ENV
               value: "production"
 
-            # ✅ APP PORT
             - name: PORT
               value: "3000"
 
-            # ✅ JWT (tùy em thay)
             - name: JWT_SECRET
               value: "your-super-secret-jwt-key-change-this-in-production"
 
-            # ✅ ✅ DATABASE CONFIG (QUAN TRỌNG)
             - name: DB_HOST
               value: "136.110.37.70"
             - name: DB_PORT

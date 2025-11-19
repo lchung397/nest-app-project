@@ -1,7 +1,7 @@
-import { Repository } from 'typeorm';
-import { IContractRepository } from '../../../domain/repositories/contract.repository.interface';
-import { Contract } from '../../../domain/entities/contract.entity';
-import { ContractSchema } from '../typeorm/contract.schema';
+import { Repository } from "typeorm";
+import { IContractRepository } from "../../../domain/repositories/contract.repository.interface";
+import { Contract } from "../../../domain/entities/contract.entity";
+import { ContractSchema } from "../typeorm/contract.schema";
 export declare class ContractRepository implements IContractRepository {
     private readonly contractRepository;
     constructor(contractRepository: Repository<ContractSchema>);

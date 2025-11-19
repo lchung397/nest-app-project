@@ -15,6 +15,8 @@ const contract_repository_1 = require("../../infrastructure/database/repositorie
 const contract_repository_interface_1 = require("../../domain/repositories/contract.repository.interface");
 const create_contract_use_case_1 = require("../../application/use-cases/create-contract.use-case");
 const update_contract_use_case_1 = require("../../application/use-cases/update-contract.use-case");
+const get_contract_use_case_1 = require("../../application/use-cases/get-contract.use-case");
+const get_contracts_use_case_1 = require("../../application/use-cases/get-contracts.use-case");
 let ContractModule = class ContractModule {
 };
 exports.ContractModule = ContractModule;
@@ -28,7 +30,9 @@ exports.ContractModule = ContractModule = __decorate([
                 useClass: contract_repository_1.ContractRepository,
             },
             create_contract_use_case_1.CreateContractUseCase,
-            update_contract_use_case_1.UpdateContractUseCase
+            update_contract_use_case_1.UpdateContractUseCase,
+            get_contract_use_case_1.GetContractUseCase,
+            get_contracts_use_case_1.GetContractsUseCase,
         ],
         exports: [contract_repository_interface_1.IContractRepository],
     })

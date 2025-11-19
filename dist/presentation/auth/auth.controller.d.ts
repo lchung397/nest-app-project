@@ -1,8 +1,9 @@
-import { SignUpDto } from '../../application/dto/signup.dto';
-import { SignInDto } from '../../application/dto/signin.dto';
-import { SignUpUseCase } from '../../application/use-cases/signup.use-case';
-import { SignInUseCase } from '../../application/use-cases/signin.use-case';
-import { GetUserUseCase } from '../../application/use-cases/get-user.use-case';
+import { SignUpDto } from "../../application/dto/signup.dto";
+import { SignInDto } from "../../application/dto/signin.dto";
+import { SignUpUseCase } from "../../application/use-cases/signup.use-case";
+import { SignInUseCase } from "../../application/use-cases/signin.use-case";
+import { GetUserUseCase } from "../../application/use-cases/get-user.use-case";
+import type { RequestWithUser } from "./interfaces/request-with-user.interface";
 export declare class AuthController {
     private readonly signUpUseCase;
     private readonly signInUseCase;
@@ -24,7 +25,7 @@ export declare class AuthController {
             name: string;
         };
     }>;
-    getMe(req: any): Promise<{
+    getMe(req: RequestWithUser): Promise<{
         id: string;
         email: string;
         name: string;

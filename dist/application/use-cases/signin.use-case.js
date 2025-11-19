@@ -60,12 +60,12 @@ let SignInUseCase = class SignInUseCase {
     async execute(signInDto) {
         const { email, password } = signInDto;
         const user = await this.userRepository.findByEmail(email);
-        if (!user) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
+        if (!user || !user.password) {
+            throw new common_1.UnauthorizedException("Invalid credentials");
         }
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
+            throw new common_1.UnauthorizedException("Invalid credentials");
         }
         const payload = { email: user.email, sub: user.id };
         const access_token = this.jwtService.sign(payload);
