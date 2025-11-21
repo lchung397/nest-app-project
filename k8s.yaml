@@ -28,19 +28,40 @@ spec:
               value: "3000"
 
             - name: JWT_SECRET
-              value: "your-super-secret-jwt-key-change-this-in-production"
+              valueFrom:
+                secretKeyRef:
+                  name: nest-app-secret 
+                  key: JWT_SECRET       
 
             - name: DB_HOST
-              value: "136.110.37.70"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USERNAME
-              value: "postgres"
-            - name: DB_PASSWORD
-              value: "LASdExY6HJxxx"
-            - name: DB_DATABASE
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: nest-app-secret
+                  key: DB_HOST
 
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: nest-app-secret
+                  key: DB_PORT
+
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: nest-app-secret
+                  key: DB_USERNAME
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nest-app-secret
+                  key: DB_PASSWORD
+
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: nest-app-secret
+                  key: DB_DATABASE
           resources:
             requests:
               cpu: "250m"
@@ -55,7 +76,7 @@ kind: Service
 metadata:
   name: nest-svc
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: nest-app-project
   ports:

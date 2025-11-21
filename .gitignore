@@ -3,6 +3,8 @@
 /node_modules
 /build
 /tmp
+/istio-1.28.0
+/anthos-service-mesh-samples
 # Logs
 logs
 *.log
